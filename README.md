@@ -1,4 +1,4 @@
-# [AUTO LOAN CALCULATOR](https://sharabhss.github.io/auto-loan-calculator/)
+# [LOAN CALCULATOR](https://sharabhss.github.io/auto-loan-calculator/)
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
