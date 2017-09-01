@@ -2,15 +2,16 @@ import React from 'react';
 import Amortization from './amortization'
 
 class Calculator extends React.Component{
+    // initialize the states for the props
     constructor(props) {
-      super();
+      super(props);
       this.state = {
         loan: props.loan,
         months: props.months,
         rate: props.rate
       };
-  }
-
+    }
+    // this class renders the input forms and the calls the Amortization class for the data table
     render() {
         var payment = calculatePayment(this.state.loan, this.state.months, this.state.rate);
         var monthlyPayment = payment.monthlyPayment;
@@ -38,22 +39,28 @@ class Calculator extends React.Component{
     }
 }
 
+// monthly payment and amortization values calculation function. All the math is done here
 var calculatePayment = function(loan, months, rate) {
-    var monthlyRate = rate / 100 / 12;
-    var monthlyPayment = loan * monthlyRate / (1 - (Math.pow(1/(1 + monthlyRate), months)));
-    var balance = loan;
-    var amortization = [];
-    var interestY = 0; 
-    var loanY = 0;
-    for (var m=0; m<months; m++) {
-        var interestM = balance * monthlyRate;
-        var loanM = monthlyPayment - interestM;
-        interestY = interestY + interestM;
-        loanY = loanY + loanM;
-        balance = balance - loanM;
-        amortization.push({loanY: loanY, interestY: interestY, balance: balance});
+    if (loan == null || months == null || rate == null) {
+        return {monthlyPayment: 0, amortization:[]};
     }
-    return {monthlyPayment: monthlyPayment, amortization:amortization};
+    else {
+        var monthlyRate = rate / 100 / 12;
+        var monthlyPayment = loan * monthlyRate / (1 - (Math.pow(1/(1 + monthlyRate), months)));
+        var balance = loan;
+        var amortization = [];
+        var interestX = 0; 
+        var loanX = 0;
+        for (var m=0; m<months; m++) {
+            var interestY = balance * monthlyRate;
+            var loanM = monthlyPayment - interestY;
+            interestX = interestX + interestY;
+            loanX = loanX + loanM;
+            balance = balance - loanM;
+            amortization.push({loanX: loanX, interestX: interestX, balance: balance});
+        }
+        return {monthlyPayment: monthlyPayment, amortization:amortization};
+    }
 };
 
 export default Calculator;
