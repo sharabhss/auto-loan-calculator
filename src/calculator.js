@@ -32,7 +32,7 @@ class Calculator extends React.Component{
                     </div>
                 </div>
                 <h2>Monthly Payment: <span className="currency">{Number(monthlyPayment.toFixed(2)).toString()}</span></h2>
-                <Amortization data={amortization}/>
+                <Amortization values={amortization}/>
             </div>
         );
     }
